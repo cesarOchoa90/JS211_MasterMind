@@ -15,26 +15,64 @@ const printBoard = () =>  {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
+//code without help spec3 /4
+const hint = generateHint(guess)
+board.push('${guess} - ${hint}');
 }
 
+if (board.length == 10){
+  return 'You ran out of turns! The solution was ${solution}';
+}
+  else {
+    return 'Guess again.';
+  }
+
+//
 const generateSolution = () =>  {
   for (let i = 0; i < 4; i++) {
     const randomIndex = getRandomInt(0, letters.length);
     solution += letters[randomIndex];
   }
 }
-
+// the function below is invoking a min o (from line 22) and a max of 8 from the letters of the array
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const generateHint = () =>  {
+const generateHint = (guess) =>  {
   // your code here
+  let solutionArray = solution.split("")
+  let guessArray= guess.split("")
+  let correctLetterLocations = 0
+  let correctLetters = 0
+
+  for (let i = 0; i < solutionArray.length; i++){
+    if (solutionArray[i] == guessArray[i]){
+      correctLetterLocations++
+      solutionArray[i] = null
+    }
+  } 
+// coding without help 2.3 and 2.4
+  for (let i = 0; i < solutionArray.length; i++){
+     const targetIndex = solutionArray.indexOf(guessArray[i]);
+  }
+  if ( targetIndex > -1){
+    correctLetters++;
+    solutionArray[targetIndex] = null;
+  }
+
+  console.log("This is how many letters are in the correct location " + correctLetterLocations, " and this is how many letters you got correct " + correctLetters)
+  
+
 }
 
 const mastermind = (guess) => {
   solution = 'abcd'; // Comment this out to generate a random solution
   // your code here
+  if( guess == solution){
+    console.log("You guessed it")
+  }
+  generateHint(guess)
 }
 
 
